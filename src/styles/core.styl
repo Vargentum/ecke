@@ -1,0 +1,588 @@
+@import "modules/variables"
+@import "modules/mixins"
+@import "modules/assets"
+
+
+/*------------------------------------*\
+  Styling for default UI elements
+\*------------------------------------*/
+base-input-model()
+  background-color #fff
+  border #b6b2b0
+  color: $titleColor;
+  font-size: 18px
+  padding: 0 10px
+
+base-button-model()
+  position relative
+  padding: 5px 20px
+  title(20px, #fff)
+  text-transform: lowercase
+  background-color $brandColor
+  transition: background-color .4s
+  &:hover,&:focus
+    background-color: lighter($brandColor, 10%)
+  &:active
+    top: 2px;
+
+for $type in text password datetime datetime-local date month time week number email url search tel
+  [type={$type}]
+    height: $inputHeight
+    base-input-model()
+    label &
+      width: 100%
+
+for $type in radio checkbox
+  [type={$type}]{}
+
+textarea
+  vertical-align: top
+  resize: none
+  base-input-model()
+  min-height: 180px
+  padding: 5px 10px
+
+button
+  border: none
+  background-color: transparent
+  base-button-model()
+
+
+label
+  display block
+
+small
+  color: #878787;
+  font-size: 12px;
+
+
+figure
+  reset-box-model()
+
+a
+  color: $linkColor
+  text-decoration: none
+  &:hover
+    color $hoveredLinkColor
+    text-decoration: none
+  &:focus
+    color $focusedLinkColor
+    outline: thin dotted
+  &:active
+    color $activeLinkColor
+  &:visited
+    color $visitedLinkColor
+
+
+
+body
+  background-color: $bodyColor
+
+
+/*------------------------------------*\
+    Custom UI elements
+\*------------------------------------*/
+custom-text-decoration($color){
+  text-decoration: none
+  border-bottom: 1px dashed $color
+  &:hover,&:focus{
+    border-bottom-style solid
+  }
+}
+
+
+.go-back
+  &:before
+    pi(middle)
+    size 5px 9px
+    img('go-back.png')
+    margin-right: 5px
+/*------------------------------------*\
+    HEADER
+\*------------------------------------*/
+.l-header
+  position: relative
+  background-color #fff
+  min-width $baseMinWidth
+  
+.l-header__top
+  background-color: $brandColor
+  color: #f9dbd1;
+  font-size: 11px
+  padding: 5px 0
+
+.l-header__btm
+  container()
+  jLine top
+  padding: 9px 0
+  position relative
+  //gradient stripe after logo
+  &:before
+    pb(top left $column-lt)
+    size 3px 100%
+    background: linear-gradient(top, rgba(229,81,0,1) 0%,rgba(229,86,8,1) 6%,rgba(232,110,43,1) 17%,rgba(233,133,76,1) 26%,rgba(238,187,157,1) 45%,rgba(240,210,191,1) 54%,rgba(241,219,205,1) 58%,rgba(242,220,205,1) 59%,rgba(242,231,224,1) 67%,rgba(242,237,231,1) 71%,rgba(242,235,228,1) 100%);
+
+.user-city
+  width: $column-lt
+  hLine()
+  .this__cityName
+    custom-text-decoration(#fff)
+
+.header-nav
+  width: $column-ctr
+  position relative
+  left: -10px;
+  hLine()
+  font: 15px $brandFamily
+  a
+    padding: 0 10px
+    c1(#f9dbd1)
+
+.callback
+  width: $column-rt
+  a
+    c1 #fff
+    custom-text-decoration(#fff)
+
+
+.logo
+  text-decoration: none
+  img
+    display inline-block
+  .this__label
+    visibility hidden
+    position absolute
+  .l-header &
+    width: $column-lt
+  .l-footer &
+    width: $column-rt
+
+
+.template-header
+  width: $column-ctr
+
+.template-title
+  title(36px)
+  margin: 0
+  line-height: 1
+
+.crumbs
+  hLine()
+  font-size: 11px
+  //divider
+  a
+    &:before
+      pi(middle)
+      content '-'
+      margin-right: 3px
+      margin-top: -2px
+    &:first-child:before
+      display none
+    &:last-child
+      c1($titleColor)
+
+.header-contacts
+  width: $column-rt
+  white-space nowrap
+  font: 14px $brand-family
+
+  .this__phone
+    display block
+    title 20px
+
+  for $i in email skype
+    .this__{$i}
+      padding-left: 17px
+      img: ('header-contacts-'+$i+'.png')
+      background-position 0 50%
+
+
+
+
+/*------------------------------------*\
+    CONTENT Zone
+\*------------------------------------*/
+.l-main
+  background-color: #eae9e6
+  min-width $baseMinWidth
+
+.l-main__wrapper
+  hLine(top)
+  .csscalc &
+    text-align: right
+    &>*
+      text-align: left
+  .no-csscalc &
+    container()
+
+.l-main__primaryColumn
+  padding: 35px 0
+  p
+    margin-bottom: $paragraphSpace;
+    &:last-child
+      margin-bottom: 0;
+  .csscalc &
+    width: calc(100% - 50% \+ 305px)
+    padding-right: 75px
+  .no-csscalc &
+    width: 770px
+
+.l-main__primaryColumn__container
+  padding-left: 20px
+  width: 770px
+
+.l-main__secondaryColumn
+  width: 200px
+  padding: 35px 0
+
+
+.nav
+  font-family: $brandFamily;
+
+  .this__section__header
+    display block
+    padding: 0 20px
+    font-size: 18px
+    line-height 28px
+    &.base-font-size
+      font-size: $baseFontSize
+
+  .this__section__main
+    font-size: 12px
+    a
+      display block
+      padding: 1px 0
+      &:hover,&:focus
+        text-decoration: underline
+
+
+
+.footer-nav
+  width: 610px
+  margin-top: -7px
+  hLine(top)
+  font-family $brandFamily
+
+  .this__section
+    min-width 130px
+    max-width 180px
+
+  .this__section__main
+    padding: 3px 20px
+    border-top: 1px solid #5d5b5b
+    a
+      c2($brandColor, #fff)
+      &:hover,&:focus
+        text-decoration: none
+
+
+.sidebar-nav
+  .this__section
+    padding-right: 25px
+    &.is-active
+      .this__section__header
+        background-color #e55100
+        border-bottom none
+        //dotted line on left
+        &:before
+          pb(right 100% top 50% )
+          size 9999px 0
+          border-bottom: 1px dotted $brandColor;
+        //triangle
+        &:after
+          pb(top left 100%)
+          border-left   14px solid $brandColor
+          border-top    14px solid transparent
+          border-bottom 14px solid transparent
+
+
+  .this__section__header
+    font-size: 20px
+    padding-left: 25px
+  a
+    padding: 2px 0
+    border-bottom: 1px dotted #bbb
+    position relative
+    //solid line emulation
+    &:before
+      pb(bottom -1px right)
+      size 150px 1px
+      background-color #bbb
+
+  .this__section__main
+    border-top: none
+    a
+      padding-left: 25px
+
+for $i in 1..3
+  .catalog-section-label--{$i}
+    padding-left: 20px
+    img('catalog-icon-'+$i+'.png')
+    background-position 0 50%
+    .is-active &
+      c1: #fff
+      img('catalog-icon-'+$i+'-active.png')
+      background-position 0 50%
+    .sidebar-nav &,
+    .sidebar-nav .is-active &
+      background-position 7px 50%
+
+/*------------------------------------*\
+    FOOTER
+\*------------------------------------*/
+.l-footer
+  position: relative
+  background-color: #3c3b3b
+  min-width $baseMinWidth
+  padding: 25px 0 5px
+  a
+    c1(#ff5900)
+
+
+.footer-contacts
+  width: $column-rt;
+  color #878787
+  font-size 11px
+  p
+    margin-bottom: 3px
+
+  .this__phone
+    color #cbcbcb
+    font 14px $brandFamily;
+
+  .this__callback
+    custom-text-decoration($brandColor)
+
+
+.l-footer__btm
+  container()
+  jLine top
+  color #878787
+  font-size 11px
+  margin-top: 10px
+  &>*
+    border-top 1px solid #5d5b5b
+    padding: 10px 17px
+    &:nth-child(1)
+      padding-left: 0
+      width: 170px
+    &:nth-child(2)
+      width: 273px
+    &:nth-child(3)
+      width: 322px
+    &:nth-child(4)
+      width: 180px
+      padding-right: 0
+
+/*------------------------------------*\
+    Template:
+\*------------------------------------*/
+.product-preview
+  reset-box-model()
+  height: 71px
+  background-repeat repeat-x
+  border-radius 15px/10px
+  color: #ffff
+  padding: 14px 0 0 20px;
+  margin-bottom: 1px
+  p
+    reset-box-model()
+
+  .this__title,
+  .this__title--sub
+    font-size: 18px
+    line-height: 1.2
+    display inline-block
+    padding: 2px 8px 4px
+    background-color: #564842
+
+  .this__title--sub
+    font-size: 12px
+    padding-top: 0
+    padding-bottom: 5px;
+
+
+.product-preview-wrapper
+  margin: 30px 0
+
+/*------------------------------------*\
+    Template: Pricelist
+\*------------------------------------*/
+.base-form
+  label
+    display block
+    margin-bottom: 10px
+    jLine middle
+  .this__inputLabel
+    text-align: right
+    line-height: 1
+    font-size: 14px
+    color: $titleColor
+
+.priceList-request
+  @extend .base-form
+  margin-top: 20px
+  .this__inputLabel
+    width: 240px
+  .this__input
+    width: 500px
+
+
+
+/*------------------------------------*\
+    Template: Product
+\*------------------------------------*/
+.product-view
+  .this__seo
+    color: #656565;
+    font-size: 12px;
+    margin: 10px 0 20px
+
+  .this__photo
+    position relative
+    size 400px
+    img
+      display block
+      size 100%
+
+  .this__photo__label
+    display inline-block
+    absolute left 10px bottom 80px
+    font-size: 12px
+    color: #fff
+    text-transform: uppercase
+    padding: 3px 5px
+    background-color #564842
+
+  .this__main
+    width: 340px
+
+  table
+    width: 100%
+    margin-bottom: 20px
+
+  caption
+    font-family: $brandFamily
+    padding: 0 30px 7px
+    color: #878787
+
+  th
+    font-size: 11px
+    background-color: darken(#e6e5e3, 4)
+    padding: 3px 15px
+    color: #878787
+    text-align: center
+    &:first-child
+      padding-left: 30px
+
+    &:last-child
+      text-align: right
+      padding-right: 45px
+
+  td
+    text-align: center
+    color: #656565
+    padding: 5px 15px
+    border-bottom: 1px solid #bbb
+    &:first-child
+      padding-left: 30px
+
+    &:last-child
+      color: #212121
+      text-align: right
+      padding-right: 45px
+
+  .table--left-aligned-content
+    th,td
+      text-align: left
+
+
+.henkel-recommended
+  padding-left: 100px
+  img('henkel-logo.png','0 50%')
+  margin: 15px 0
+  width: 400px
+  color: #656565;
+  font-size: 12px;
+
+/*------------------------------------*\
+    Template:
+\*------------------------------------*/
+
+
+
+/*------------------------------------*\
+    Template:
+\*------------------------------------*/
+
+
+
+/*------------------------------------*\
+    Template:
+\*------------------------------------*/
+
+
+
+/*------------------------------------*\
+    Template:
+\*------------------------------------*/
+
+
+
+/*------------------------------------*\
+    Template:
+\*------------------------------------*/
+
+
+
+/*------------------------------------*\
+    Modal window styles
+\*------------------------------------*/
+
+.reveal-modal-bg {
+  display: none;
+  fixed top left
+  size 100%
+  background: #b6b2b0;
+  opacity .6
+  z-index: 100;
+}
+
+.reveal-modal {
+  visibility: hidden;
+  absolute top 50% left 50%
+  width: 600px
+  margin-left: -(@width / 2)
+  margin-top: -(290px /2)
+  background-color #fff
+  z-index: 101;
+  padding: 25px 35px 30px
+  border 5px solid #b6b2b0
+}
+
+.close-reveal-modal {
+  absolute top 10px right 10px
+  hide-text()
+  font-weight: bold;
+  cursor: pointer;
+  img('modal-close.png')
+  size 9px
+}
+
+
+
+.callback-modal
+  @extend .base-form
+  .this__title
+    title(27px)
+    line-height: 1
+    margin-bottom: 20px
+
+  .this__inputLabel
+    width: 165px
+
+  .this__input
+    width: 340px
+
+  .this__button
+    margin-left: 180px
